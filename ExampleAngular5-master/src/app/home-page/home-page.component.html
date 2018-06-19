@@ -1,0 +1,85 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" mode="side">
+    <mat-toolbar color="primary">
+      <div>
+          <img mat-card-image src="{{imagePerson}}" alt="image person" style="width: 20%; height: 80%; display: inline-block;">&nbsp;&nbsp;&nbsp;<span style="display: inline-block">{{username}}</span>
+      </div>
+      </mat-toolbar>
+    <mat-nav-list>
+      <a mat-list-item href="home-page">
+        <mat-icon>home</mat-icon>&nbsp;&nbsp;
+        <span>Home</span>
+      </a>
+      <a mat-list-item href="profile-user">
+        <mat-icon>account_circle</mat-icon>&nbsp;&nbsp;
+        <span>Mi perfil</span>
+      </a>
+      <a mat-list-item href="list-questions">
+        <mat-icon>list</mat-icon>&nbsp;&nbsp;
+        <span>Lista de Preguntas</span>
+      </a>
+      <a mat-list-item href="add-question">
+        <mat-icon>add_circle</mat-icon>&nbsp;&nbsp;
+        <span>Añadir pregunta</span>
+      </a>
+      <a mat-list-item href="">
+        <mat-icon>exit_to_app</mat-icon>&nbsp;&nbsp;
+        <span>Salir</span>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+        <mat-icon aria-label="Side nav toggle icon">menu
+        </mat-icon>
+      </button>&nbsp;&nbsp;
+      <span>FisiCode</span>
+      <span class="spacer"></span>
+    </mat-toolbar>
+    <ng-content>
+    </ng-content>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 text-center">
+          <mat-grid-list cols="4">
+            <mat-grid-tile colspan="3" rowspan="1">
+              <div class="image-container" style="cursor: pointer;" (click)="goFisiPage()">
+                <img class="card-img-top" src="http://unmsm.edu.pe/noticias/templates/noticias2015/octubre/d23/portada_fisi.jpg" class="img-fluid"
+                  alt="Respondive image">
+                <div class="centered-text">
+                  <h4>ENTRA Y CONOCE LA FISI</h4>
+                </div>
+              </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="2" style="background-color: lightgreen">
+              <div style="cursor: pointer;" (click)="goListQuestions()">
+                <p>Preguntas recientes</p>
+                <mat-list role="list">
+                  <mat-list-item role="listitem" *ngFor="let question of listQuestions">{{ question.title }}</mat-list-item>
+                </mat-list>
+              </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="1" rowspan="1" style="background-color: lightpink">
+              <div>
+                <p>Hola {{ firstName }} {{ lastName }}!!!</p>
+                <img mat-card-image src="{{imagePerson}}" alt="image person" style="width: 50%; height: 50%">
+                <p>Tienes {{numQuestions}} preguntas realizadas</p>
+              </div>
+            </mat-grid-tile>
+            <mat-grid-tile colspan="2" rowspan="1" style="background-color: #DDBDF1">
+              <div>
+                <p>Temas más populares</p>
+                <mat-chip-list class="mat-chip-list-stacked">
+                  <mat-chip *ngFor="let chip of tags" selected="true" [color]="blue">
+                    {{chip.name}}
+                  </mat-chip>
+                </mat-chip-list>
+              </div>
+            </mat-grid-tile>
+          </mat-grid-list>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

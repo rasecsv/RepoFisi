@@ -1,0 +1,70 @@
+<div class="container">
+	<div class="row">
+		<div class="col-sm-8 offset-sm-2 text-center">
+			<div class="example-container">
+				<div class="card" style="width: 50rem" align=center>
+					<br>
+					<img class="card-img-top" src="../assets/img/answer.png" class="img-fluid" alt="Respondive image">
+					<h5 class=" card-title">REALICE SU PREGUNTA</h5>
+					<p>Necesita poner un título y una descripción para su pregunta</p>
+
+					<br>
+
+					<mat-form-field class="example-full-width">
+						<input type="text" placeholder="Escriba el tema o categoría" aria-label="Number" matInput [formControl]="tags" [matAutocomplete]="auto">
+						<mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+							<mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+								{{ option.name }}
+							</mat-option>
+						</mat-autocomplete>
+					</mat-form-field>
+
+					<br>
+
+					<mat-form-field class="example-full-width">
+						<input matInput placeholder="Título" [formControl]="title">
+						<mat-error *ngIf="title.invalid">{{getErrorMessageTitle()}}</mat-error>
+					</mat-form-field>
+
+					<br>
+
+					<mat-form-field class="example-full-width">
+						<textarea matInput placeholder="Contenido de la pregunta" [formControl]="description"></textarea>
+						<mat-error *ngIf="description.invalid">{{getErrorMessageDescription()}}</mat-error>
+					</mat-form-field>
+
+					<br>
+
+					<p>*La imagen puede ser opcional</p>
+					<div class="text-center">
+						<img mat-card-image src="" alt="image person" style="width: 50%; height: 50%; display: none;">
+
+						<br>
+						<div>
+							<input class="text-center" *ngIf="openedImage" type="file" [formControl]="imageQuestion" (change)="onFileChange($event)" #fileInput>
+						</div>
+					</div>
+
+					<br>
+
+					<div class="text-center" *ngIf="!openedImage">
+							<button class="bot0" mat-raised-button (click)="openImageChooser()">Añadir Imagen</button>
+					</div>
+
+					<div class="text-center" *ngIf="openedImage">
+						<!--<button mat-raised-button color="primary" (click)="addImage()">Guardar Imagen</button>-->
+						<button class="bot0" mat-button (click)="cancelImageAction()">Cancelar</button>
+					</div>
+
+					<br>
+
+					<div center>
+						<button class="bot1" mat-raised-button (click)="addNewQuestion()">Guardar Pregunta</button>
+						<button class="bot2" mat-button routerLink="/home-page/">Cancelar</button>
+					</div>
+					<br>
+				</div><br>
+			</div>
+		</div>
+	</div>
+</div>

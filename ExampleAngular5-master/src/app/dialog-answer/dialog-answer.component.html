@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>Nueva Respuesta</h2>
+<mat-dialog-content>
+  <mat-form-field class="example-full-width">
+    <textarea matInput placeholder="Contenido de la respuesta" [formControl]="description"></textarea>
+    <mat-error *ngIf="description.invalid">{{getErrorMessageDescription()}}</mat-error>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button (click)="addNewAnswer()">Guardar</button>
+  <button mat-raised-button (click)="closeDialog()">Cancelar</button>
+</mat-dialog-actions>

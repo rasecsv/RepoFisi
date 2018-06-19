@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-8 offset-sm-2 text-center">
+      <div class="example-container">
+        <div class="card" style="width: 40rem" align=center>
+          <br>
+          <h5 class=" card-title">CREA TU CUENTA</h5>
+          <div class="text-center">
+            <img mat-card-image src="http://alarishealth.com/wp-content/uploads/2014/06/no-user.png" alt="image person" style="width: 33%; height: 33%" >
+            <br>
+          </div>
+
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Nombres" [formControl]="firstName" required>
+            <mat-error *ngIf="firstName.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+
+          <br>
+
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Apellidos" [formControl]="lastName" required>
+            <mat-error *ngIf="lastName.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+
+          <br>
+
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Nombre de Usuario" [formControl]="username" required>
+            <mat-error *ngIf="username.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+
+          <br>
+
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Correo Electrónico" [formControl]="email" required>
+            <mat-error *ngIf="email.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+
+          <br>
+
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Contraseña" [type]="hide ? 'password': 'text'" [formControl]="password" required>
+            <mat-icon matSuffix (click)="hide = !hide" style="cursor: pointer;">{{ hide ? 'visibility' : 'visibility_off' }}</mat-icon>
+            <mat-error *ngIf="password.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+
+          <br>
+
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Confirmar contraseña" [type]="hide ? 'password': 'text'" [formControl]="rePassword" required>
+            <mat-icon matSuffix (click)="hide = !hide" style="cursor: pointer;">{{ hide ? 'visibility' : 'visibility_off' }}</mat-icon>
+            <mat-error *ngIf="rePassword.invalid">{{getErrorMessage()}}</mat-error>
+          </mat-form-field>
+
+          <br>
+
+          <div>
+            <button class="bot1" mat-raised-button (click)="registerUser()" color="primary">Registrar Usuario</button>
+            <button class="bot2"mat-button routerLink="">Cancelar</button>
+          </div><br>
+        </div>
+      </div><br>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,36 @@
+<div class="container">
+	<div class="row">
+		<div class="col-sm-8 offset-sm-2 text-center">
+			<div class="example-container">
+				<div class="card" style="width: 25rem" align=center>
+					<img class="card-img-top" src="../assets/img/Logo.png" class="img-fluid" alt="Responsive image" > 
+					<div class="card-body">	
+					<h5 class=" card-title">LOGIN</h5><br>
+					<mat-form-field class="example-full-width">
+						<input matInput placeholder="Usuario o Email" [formControl]="username">
+						<mat-error *ngIf="username.invalid">{{getErrorMessageUsername()}}</mat-error>
+					</mat-form-field>
+					
+					<br>
+
+					<mat-form-field class="example-full-width">
+						<input matInput placeholder="Contraseña" [type]="hide ? 'password': 'text'" [formControl]="password">
+						<mat-icon style="cursor: pointer;" matSuffix (click)="hide = !hide">{{ hide ? 'visibility' : 'visibility_off' }}</mat-icon>
+						<mat-error *ngIf="password.invalid">{{getErrorMessagePassword()}}</mat-error>
+					</mat-form-field>
+
+					<br>
+					<br>
+
+					<div class="text-center">
+						<button mat-raised-button color="primary" (click)="loginUser()">Ingresar</button>
+						<br>
+						<br>
+						<p>Aún no tienes cuenta?, <a href="register/">registrate aquí</a></p>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

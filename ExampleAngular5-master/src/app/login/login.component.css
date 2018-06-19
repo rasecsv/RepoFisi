@@ -1,0 +1,33 @@
+.card{
+	left: 180px;
+	width: 250px;;
+}
+.example-form {
+	min-width: 150px;
+	max-width: 500px;
+	width: 100%;
+}
+
+.example-full-width {
+	width: 100%;
+}
+
+.example-container {
+	display: flex;
+	flex-direction: column;
+}
+  
+.example-container > * {
+	width: 100%;
+	border-radius: 10px;
+}
+
+button {
+	width: 100%;
+	border-radius: 5px;
+}
+
+.container {
+	transform: translateY(5%);
+}
+

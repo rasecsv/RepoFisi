@@ -1,0 +1,148 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #drawer class="sidenav" mode="side">
+      <mat-toolbar color="primary">
+        <img mat-card-image src="{{imagePerson}}" alt="image person" style="width: 20%; height: 50%">&nbsp;&nbsp;<span>{{username}}</span></mat-toolbar>
+      <mat-nav-list>
+        <a mat-list-item href="home-page">
+          <mat-icon>home</mat-icon>&nbsp;&nbsp;
+          <span>Home</span>
+        </a>
+        <a mat-list-item href="profile-user">
+          <mat-icon>account_circle</mat-icon>&nbsp;&nbsp;
+          <span>Mi perfil</span>
+        </a>
+        <a mat-list-item href="list-questions">
+          <mat-icon>list</mat-icon>&nbsp;&nbsp;
+          <span>Lista de Preguntas</span>
+        </a>
+        <a mat-list-item href="add-question">
+          <mat-icon>add_circle</mat-icon>&nbsp;&nbsp;
+          <span>Añadir pregunta</span>
+        </a>
+        <a mat-list-item href="">
+          <mat-icon>exit_to_app</mat-icon>&nbsp;&nbsp;
+          <span>Salir</span>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <mat-toolbar color="primary">
+        
+        <mat-toolbar-row>
+            <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
+                <mat-icon aria-label="Side nav toggle icon">menu
+                </mat-icon>
+              </button>&nbsp;&nbsp;
+            <span>Listado de Preguntas</span>
+            <button mat-icon-button [matMenuTriggerFor]="menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+        
+            <mat-menu #menu="matMenu">
+              <button mat-menu-item (click)="orderByTags()">
+                <mat-icon>label</mat-icon>
+                <span>Ordenar por temas</span>
+              </button>
+              <button mat-menu-item (click)="newestQuestions()">
+                <mat-icon>arrow_upward</mat-icon>
+                <span>Ordenar por fecha (Más recientes)</span>
+              </button>
+              <button mat-menu-item (click)="oldestQuestions()">
+                <mat-icon>arrow_downward</mat-icon>
+                <span>Ordenar por fecha (Más antiguas)</span>
+              </button>
+              <button mat-menu-item (click)="orderByLikes()">
+                <mat-icon>thumb_up</mat-icon>
+                <span>Ordenar por likes</span>
+              </button>
+            </mat-menu>
+          </mat-toolbar-row>
+      </mat-toolbar>
+      <div class="container">
+          <div class="row">
+            <div class="col-sm-8 offset-sm-2 text-center">
+              <p>Filtro por curso</p>
+              <mat-form-field>
+                  <mat-select placeholder="Seleccione un curso" name="tag">
+                    <mat-option *ngFor="let tag of tags" [value]="tag.id" (click)="selectTag(tag)">
+                      {{ tag.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-sm-8 offset-sm-2 text-center"><br>
+              <span *ngFor="let item of dataExample">
+                <mat-card class="example-card">
+                  <mat-card-header>
+                    <div mat-card-avatar class="example-header-image" [style.backgroundImage]="'url('+ item.imageAuthor + ')'"></div>
+                    <mat-card-title>{{item.name}}</mat-card-title>
+                    <mat-card-subtitle>{{item.type}}</mat-card-subtitle>
+                  </mat-card-header>
+                  <img mat-card-image src="{{item.imagePost}}" alt="Photo of a Shiba Inu">
+                  <mat-card-content>
+                    <p>
+                      {{item.textPost}}
+                    </p>
+                  </mat-card-content>
+                  <mat-card-actions>
+                    <button mat-button>LIKE</button>
+                    <button mat-button>RESPONDER</button>
+                  </mat-card-actions>
+                </mat-card>
+              </span>
+        
+              <span *ngFor="let item of listQuestions">
+                <mat-card class="example-card">
+                  <mat-card-header>
+                    <div mat-card-avatar class="example-header-image" [style.backgroundImage]="'url(http://'+ item.creator.person_image + ')'"></div>
+                    <mat-card-title>{{item.title}}</mat-card-title>
+                    <mat-card-subtitle>{{item.creator.user.first_name}} {{item.creator.user.last_name}}</mat-card-subtitle>
+                  </mat-card-header>
+                  <img *ngIf="item.image_question!='Sin imagen'" mat-card-image src="http://{{item.image_question}}" alt="{{item.title}}">
+                  <mat-card-content>
+                    <p>
+                      {{item.statement}}
+                    </p>
+                    <mat-chip-list class="mat-chip-list-stacked" *ngIf="checkType(item.tags)">
+                      <mat-chip *ngFor="let tag of item.tags" selected="true" [color]="primary">
+                        {{tag.name}}
+                      </mat-chip>
+                    </mat-chip-list>
+                  </mat-card-content>
+        
+                  <mat-card-actions>
+                    <button mat-button color="primary" (click)="voteUpQuestion(item)" [disabled]="item.has_like>0"><mat-icon>thumb_up</mat-icon> LIKE ({{item.likes}})</button>
+                    <button mat-button color="primary" (click)="voteDownQuestion(item)" [disabled]="item.has_like>0"><mat-icon>thumb_down</mat-icon> DISLIKE ({{item.dislikes}})</button>
+                    <button mat-button color="primary" (click)="openDialog(item.id)">RESPONDER</button>
+                  </mat-card-actions>
+        
+                  <mat-accordion>
+                    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" (click)="obtainAnswersQuestion(item.id)">
+                      <mat-expansion-panel-header>
+                        <mat-panel-title>
+                          Ver Respuestas
+                        </mat-panel-title>
+                        <!--<mat-panel-description>
+                          Currently I am {{panelOpenState ? 'open' : 'closed'}}
+                        </mat-panel-description>-->
+                      </mat-expansion-panel-header>
+                      <mat-list *ngFor="let answer of listAnswers">
+                        <mat-list-item>
+                          <p> {{answer.statement}} </p>
+                        </mat-list-item>
+                        <mat-list-item>
+                          <p style="font-size: 70%;">Autor: {{answer.creator.user.first_name}} {{answer.creator.user.last_name}} </p>
+                          &nbsp;&nbsp;
+                          <p style="font-size: 70%;">Publicado: {{answer.creation_date}}</p>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+                      </mat-list>
+                    </mat-expansion-panel>
+                  </mat-accordion>
+                </mat-card>
+              </span>
+            </div>
+          </div>
+        </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
